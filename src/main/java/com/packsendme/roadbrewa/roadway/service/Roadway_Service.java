@@ -23,12 +23,10 @@ public class Roadway_Service {
 	@Autowired
 	private RoadwayDAO roadway_DAO;
 	
-	@Autowired
-	private RoadwayDto roadwayObj;
+	private RoadwayDto roadwayObj = new RoadwayDto();
 
 	public ResponseEntity<?> findRoadwayAll() {
 		Response<RoadwayListResponse_Dto> responseObj = null;
-		//RoadwayDto roadwayDto = new RoadwayDto(); 
 		RoadwayListResponse_Dto roadwayListResponse_Dto = new RoadwayListResponse_Dto();
 		try {
 			roadwayListResponse_Dto.roadways = roadwayObj.Entity_TO_Dto(roadway_DAO.findAll());
