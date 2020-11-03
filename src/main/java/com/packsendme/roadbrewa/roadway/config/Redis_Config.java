@@ -40,8 +40,8 @@ public class Redis_Config {
  
 	
 	@Bean
-	public RedisTemplate<String, Object> redisTemplate(){
-		final RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
+	public RedisTemplate<Object, Object> redisTemplate(){
+		final RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<Object, Object>();
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
 		redisTemplate.setHashKeySerializer(new GenericToStringSerializer<Object>(Object.class));
 		redisTemplate.setHashValueSerializer(new JdkSerializationRedisSerializer());

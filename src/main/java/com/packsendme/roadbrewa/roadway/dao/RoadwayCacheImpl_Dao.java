@@ -15,7 +15,7 @@ public class RoadwayCacheImpl_Dao implements ICrudCache<Roadway>{
 	private final boolean RESULT_ERROR = false;
 
 	@Autowired(required=true)
-	private RedisTemplate<String, Roadway> redisTemplate;
+	private RedisTemplate<Object, Object> redisTemplate;
 	/*
 	@Autowired
 	private Redis_Config cacheConfig;*/
