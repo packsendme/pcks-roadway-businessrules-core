@@ -13,6 +13,7 @@ import com.packsendme.lib.common.response.Response;
 import com.packsendme.roadbrewa.component.RoadwayManagerConstants;
 import com.packsendme.roadbrewa.dto.RoadwayDto;
 import com.packsendme.roadbrewa.entity.Roadway;
+import com.packsendme.roadbrewa.roadway.component.VersionManager_Component;
 import com.packsendme.roadbrewa.roadway.dao.RoadwayDAO;
 import com.packsendme.roadbrewa.roadway.dto.RoadwayListResponse_Dto;
 
@@ -25,13 +26,16 @@ public class Roadway_Service {
 	
 	@Autowired
 	private RoadwayDto roadwayObj;
+	
+	@Autowired
+	private VersionManager_Component versionManagerObj;
 
-	public ResponseEntity<?> findRoadwayAll() {
+	public ResponseEntity<?> findAll() {
 		Response<RoadwayListResponse_Dto> responseObj = null;
 		//RoadwayDto roadwayDto = new RoadwayDto(); 
 		RoadwayListResponse_Dto roadwayListResponse_Dto = new RoadwayListResponse_Dto();
 		try {
-			roadwayListResponse_Dto.roadways = roadwayObj.Entity_TO_Dto(roadway_DAO.findAll());
+			roadwayListResponse_Dto.roadways = roadwayObj.entityTOdto(roadway_DAO.findAll());
 			responseObj = new Response<RoadwayListResponse_Dto>(0,HttpExceptionPackSend.CREATED_ROADWAYBRE.getAction(), roadwayListResponse_Dto);
 			return new ResponseEntity<>(responseObj, HttpStatus.OK);
 		}
@@ -42,10 +46,11 @@ public class Roadway_Service {
 		}
 	}
 	
-	public ResponseEntity<?> saveRoadway(RoadwayDto roadwayDto) {
+	public ResponseEntity<?> save(RoadwayDto roadwayDto) {
 		Response<RoadwayDto> responseObj = null;
 		try {
-			Roadway entity = roadwayObj.Dto_TO_Entity(roadwayDto, null, RoadwayManagerConstants.ADD_OP_ROADWAY);  //parserObj.parserRoadwayBRE_TO_Model(roadwayBRE,null,RoadwayManagerConstants.ADD_OP_ROADWAY);
+			Roadway entity = roadwayObj.dtoTOentity(roadwayDto, null, RoadwayManagerConstants.ADD_OP_ROADWAY);  //parserObj.parserRoadwayBRE_TO_Model(roadwayBRE,null,RoadwayManagerConstants.ADD_OP_ROADWAY);
+			entity.version = versionManagerObj.registeredGenerate(RoadwayManagerConstants.VERSION_DEFAULT);
 			roadway_DAO.save(entity);
 			responseObj = new Response<RoadwayDto>(0,HttpExceptionPackSend.CREATE_ROADWAYBRE.getAction(), roadwayDto);
 			return new ResponseEntity<>(responseObj, HttpStatus.OK);
@@ -57,7 +62,7 @@ public class Roadway_Service {
 		}
 	}
 	
-	public ResponseEntity<?> deleteRoadway(String id) {
+	public ResponseEntity<?> delete(String id) {
 		Response<String> responseObj = null;
 		try {
 			Optional<Roadway> roadwayData = roadway_DAO.findOneById(id);
@@ -84,13 +89,13 @@ public class Roadway_Service {
 		}
 	}
 	
-	public ResponseEntity<?> updateRoadway(String id, RoadwayDto roadwayDto) {
+	public ResponseEntity<?> update(String id, RoadwayDto roadwayDto) {
 		Response<String> responseObj = null;
 		try {
 			Optional<Roadway> roadwayData = roadway_DAO.findOneById(id);
 			if(roadwayData.isPresent()) {
 				Roadway entity = roadwayData.get(); 
-				entity = roadwayObj.Dto_TO_Entity(roadwayDto, entity, RoadwayManagerConstants.UPDATE_OP_ROADWAY); //parserObj.parserRoadwayBRE_TO_Model(businessRuleBRE,roadwayBRE_Entity,RoadwayManagerConstants.UPDATE_OP_ROADWAY);
+				entity = roadwayObj.dtoTOentity(roadwayDto, entity, RoadwayManagerConstants.UPDATE_OP_ROADWAY); //parserObj.parserRoadwayBRE_TO_Model(businessRuleBRE,roadwayBRE_Entity,RoadwayManagerConstants.UPDATE_OP_ROADWAY);
 				entity = roadway_DAO.update(entity);
 				responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), entity.id);
 				return new ResponseEntity<>(responseObj, HttpStatus.ACCEPTED);

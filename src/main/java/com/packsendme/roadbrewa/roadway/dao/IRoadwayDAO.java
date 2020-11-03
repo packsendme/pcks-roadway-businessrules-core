@@ -17,7 +17,7 @@ public interface IRoadwayDAO<T> {
 	
 	public T findOneByIdAndName(String id, String name);
 
-	public T findOneByName(String name);
+	public T findOneByParameters(String parameters);
 	
 	public List<T> findEntityByParameters(String name);
 

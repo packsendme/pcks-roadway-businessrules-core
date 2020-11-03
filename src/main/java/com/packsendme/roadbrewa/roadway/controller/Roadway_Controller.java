@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.packsendme.roadbrewa.dto.RoadwayDto;
+import com.packsendme.roadbrewa.roadway.service.Lifecycle_Service;
 import com.packsendme.roadbrewa.roadway.service.Roadway_Service;
 
 @RestController
@@ -24,6 +25,9 @@ public class Roadway_Controller {
 	
 	@Autowired
 	private Roadway_Service roadwayService;	
+	
+	@Autowired
+	private Lifecycle_Service lifecycleService;
 
 	
 	/***************************************
@@ -34,7 +38,7 @@ public class Roadway_Controller {
 	@GetMapping("/roadway")
 	public ResponseEntity<?> getRoadway(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp) {	
-		return roadwayService.findRoadwayAll();
+		return roadwayService.findAll();
 	}
 
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -43,7 +47,7 @@ public class Roadway_Controller {
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
 			@Validated  @RequestBody RoadwayDto roadway)
 	{	
-		return roadwayService.saveRoadway(roadway);
+		return roadwayService.save(roadway);
 	}
 	
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -51,7 +55,7 @@ public class Roadway_Controller {
 	public ResponseEntity<?> deleteRoadway(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, @Validated @RequestParam("id") String id)
 	{	
-		return roadwayService.deleteRoadway(id);
+		return roadwayService.delete(id);
 	}
 
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -60,7 +64,22 @@ public class Roadway_Controller {
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, @Validated @RequestParam("id") String id,
 			@Validated  @RequestBody RoadwayDto roadway)
 	{	
-		return roadwayService.updateRoadway(id, roadway);
+		return roadwayService.update(id, roadway);
+	}
+
+	
+	
+	/***************************************
+	 LIFE CYCLE <--> 
+	***************************************/
+	
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@PostMapping("/roadway/published")
+	public ResponseEntity<?> checkPublished(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
+			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
+			@Validated @RequestParam("id") String id)
+	{	
+		return lifecycleService.published(id);
 	}
 
 }

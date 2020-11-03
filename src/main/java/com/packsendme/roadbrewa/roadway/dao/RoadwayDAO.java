@@ -80,9 +80,15 @@ public class RoadwayDAO implements IRoadwayDAO<Roadway> {
 	}
 
 	@Override
-	public Roadway findOneByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public Roadway findOneByParameters(String name) {
+		try {
+			Roadway entityModel = roadwayManager_Rep.findBusinessRuleByStatus(name);
+			return entityModel; 
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null; 
+		}		
 	}
 
 	@Override
