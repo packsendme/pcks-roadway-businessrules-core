@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.packsendme.roadbrewa.entity.Roadway;
-import com.packsendme.roadbrewa.roadway.config.Redis_Config;
 
 @Repository
 @Transactional
@@ -17,15 +16,15 @@ public class RoadwayCacheImpl_Dao implements ICrudCache<Roadway>{
 
 	@Autowired(required=true)
 	private RedisTemplate<String, Roadway> redisTemplate;
-	
+	/*
 	@Autowired
-	private Redis_Config cacheConfig;
+	private Redis_Config cacheConfig;*/
 	
 	@Override
 	public boolean add(String hashKey, Roadway entity) {
 		try {
-			redisTemplate.opsForHash().delete(cacheConfig.NAME_CACHE,hashKey);  
-			redisTemplate.opsForHash().put(cacheConfig.NAME_CACHE, hashKey, entity);
+			redisTemplate.opsForHash().delete("Teste",hashKey);  
+			redisTemplate.opsForHash().put("Teste", hashKey, entity);
 			return RESULT_SUCCESS;
 		}
 		catch (Exception e) {
@@ -38,7 +37,7 @@ public class RoadwayCacheImpl_Dao implements ICrudCache<Roadway>{
 	public boolean delete(String hashKey) {
 		long result = 0;
 		try {
-			result = redisTemplate.opsForHash().delete(cacheConfig.NAME_CACHE,hashKey);
+			result = redisTemplate.opsForHash().delete("Teste",hashKey);
 			System.out.println(" ===========================================================  ");
 			System.out.println(" RESULT DELETE  "+ result);
 			System.out.println(" ===========================================================  ");
@@ -58,7 +57,7 @@ public class RoadwayCacheImpl_Dao implements ICrudCache<Roadway>{
 	@Override
 	public Roadway findOne(String hashKey) {
 		try {
-			return (Roadway) redisTemplate.opsForHash().get(cacheConfig.NAME_CACHE, hashKey);
+			return (Roadway) redisTemplate.opsForHash().get("Teste", hashKey);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
