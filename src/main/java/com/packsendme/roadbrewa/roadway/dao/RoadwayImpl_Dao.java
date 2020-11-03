@@ -14,7 +14,7 @@ import com.packsendme.roadbrewa.roadway.repository.IRoadway_Repository;
 
 @Component
 @ComponentScan({"com.packsendme.roadbrewa.roadway.repository"})
-public class Roadway_Dao implements ICrud_Dao<Roadway> {
+public class RoadwayImpl_Dao implements ICrud<Roadway> {
 
 	@Autowired
 	IRoadway_Repository roadwayManager_Rep; 

@@ -11,20 +11,21 @@ import org.springframework.stereotype.Service;
 import com.packsendme.lib.common.constants.generic.HttpExceptionPackSend;
 import com.packsendme.lib.common.response.Response;
 import com.packsendme.roadbrewa.component.RoadwayManagerConstants;
-import com.packsendme.roadbrewa.dto.RoadwayDto;
 import com.packsendme.roadbrewa.entity.Roadway;
 import com.packsendme.roadbrewa.roadway.component.VersionManager_Component;
-import com.packsendme.roadbrewa.roadway.dao.Roadway_Dao;
+import com.packsendme.roadbrewa.roadway.dao.RoadwayCacheImpl_Dao;
+import com.packsendme.roadbrewa.roadway.dao.RoadwayImpl_Dao;
 
 @Service
 @ComponentScan({"com.packsendme.roadbrewa.roadway.dao"})
 public class Lifecycle_Service {
 	
 	@Autowired
-	private Roadway_Dao roadway_DAO;
-	
-	private RoadwayDto roadwayObj = new RoadwayDto();
-	
+	private RoadwayImpl_Dao roadway_DAO;
+
+	@Autowired
+	private RoadwayCacheImpl_Dao roadwayCache_DAO;
+
 	@Autowired
 	private VersionManager_Component versionManagerObj;
 	
@@ -41,16 +42,16 @@ public class Lifecycle_Service {
 				roadwayEntity.status = RoadwayManagerConstants.PUBLISHED_STATUS;
 				roadwayEntity.version = versionManagerObj.publishedGenerate(roadwayEntity.version);
 				
-				// (3) Send Entity to Queue Roadway
-
-
-				roadwayEntity = roadway_DAO.update(roadwayEntity);
+				// (3) Send Entity to Queue Roadway Cache
+				if(roadwayCache_DAO.add(roadwayEntity.transport, roadwayEntity) == true) {
+					roadwayEntity = roadway_DAO.update(roadwayEntity);
+				}
 				responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), roadwayEntity.id);
 				return new ResponseEntity<>(responseObj, HttpStatus.ACCEPTED);
 			}
 			else {
 				responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), null);
-				return new ResponseEntity<>(responseObj, HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>(responseObj, HttpStatus.FOUND);
 			}
 		}
 		catch (Exception e) {
