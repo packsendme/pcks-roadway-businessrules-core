@@ -33,9 +33,9 @@ public class VersionManager_Component {
 	}
 	
 	public String getVersionForStatusType(String typeVersion, String version) {
-		int currentPosition = getPositionStatus(typeVersion);
+		int currentPosition = 0;
 		String resultVersion = "";
-		int positionVersion = 0;
+		int positionVersion = getPositionStatus(typeVersion);
 		
 		for(int i = 0; i < version.length(); i++) {
 			char vlrC = version.charAt(i);
@@ -58,9 +58,10 @@ public class VersionManager_Component {
 	
 	public String putVersion(String typeVersion, String version, String versionChange) {
 		boolean vlrAdd = true;
- 		int positionVersion = 0;
+ 		int positionVersion = getPositionStatus(typeVersion);
 		String resultVersion = "";
-		int currentPosition = getPositionStatus(typeVersion);
+		int currentPosition = 1;
+ 
 		
 		for(int i = 0; i < version.length(); i++) {
 			char vlrC = version.charAt(i);
