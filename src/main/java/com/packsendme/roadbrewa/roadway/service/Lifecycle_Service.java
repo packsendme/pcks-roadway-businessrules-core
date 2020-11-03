@@ -23,8 +23,7 @@ public class Lifecycle_Service {
 	@Autowired
 	private Roadway_Dao roadway_DAO;
 	
-	@Autowired
-	private RoadwayDto roadwayObj;
+	private RoadwayDto roadwayObj = new RoadwayDto();
 	
 	@Autowired
 	private VersionManager_Component versionManagerObj;
