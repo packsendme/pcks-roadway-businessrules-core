@@ -16,6 +16,9 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableRedisRepositories
 public class Redis_Config {
 	
+	@Value(value = "${redis.cache.roadwayBRE_SA}")
+	public String roadwayBRE_SA;
+	
 	@Value(value = "${spring.redis.host}")
 	public String REDIS_HOSTNAME;
 	
