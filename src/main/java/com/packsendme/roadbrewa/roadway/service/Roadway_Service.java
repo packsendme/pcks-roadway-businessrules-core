@@ -14,7 +14,7 @@ import com.packsendme.roadbrewa.component.RoadwayManagerConstants;
 import com.packsendme.roadbrewa.dto.RoadwayDto;
 import com.packsendme.roadbrewa.entity.Roadway;
 import com.packsendme.roadbrewa.roadway.component.VersionManager_Component;
-import com.packsendme.roadbrewa.roadway.dao.RoadwayDAO;
+import com.packsendme.roadbrewa.roadway.dao.Roadway_Dao;
 import com.packsendme.roadbrewa.roadway.dto.RoadwayListResponse_Dto;
 
 @Service
@@ -22,17 +22,15 @@ import com.packsendme.roadbrewa.roadway.dto.RoadwayListResponse_Dto;
 public class Roadway_Service {
 	
 	@Autowired
-	private RoadwayDAO roadway_DAO;
-	
-	@Autowired
-	private RoadwayDto roadwayObj;
+	private Roadway_Dao roadway_DAO;
 	
 	@Autowired
 	private VersionManager_Component versionManagerObj;
 
+	private RoadwayDto roadwayObj = new RoadwayDto();
+
 	public ResponseEntity<?> findAll() {
 		Response<RoadwayListResponse_Dto> responseObj = null;
-		//RoadwayDto roadwayDto = new RoadwayDto(); 
 		RoadwayListResponse_Dto roadwayListResponse_Dto = new RoadwayListResponse_Dto();
 		try {
 			roadwayListResponse_Dto.roadways = roadwayObj.entityTOdto(roadway_DAO.findAll());
