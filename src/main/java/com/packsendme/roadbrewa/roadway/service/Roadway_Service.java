@@ -49,6 +49,7 @@ public class Roadway_Service {
 		try {
 			Roadway entity = roadwayObj.dtoTOentity(roadwayDto, null, RoadwayManagerConstants.ADD_OP_ROADWAY);  //parserObj.parserRoadwayBRE_TO_Model(roadwayBRE,null,RoadwayManagerConstants.ADD_OP_ROADWAY);
 			entity.version = versionManagerObj.registeredGenerate(RoadwayManagerConstants.VERSION_DEFAULT);
+			entity.status = RoadwayManagerConstants.REGISTERED_STATUS;
 			roadway_DAO.save(entity);
 			responseObj = new Response<RoadwayDto>(0,HttpExceptionPackSend.CREATE_ROADWAYBRE.getAction(), roadwayDto);
 			return new ResponseEntity<>(responseObj, HttpStatus.OK);
@@ -94,6 +95,7 @@ public class Roadway_Service {
 			if(roadwayData.isPresent()) {
 				Roadway entity = roadwayData.get(); 
 				entity = roadwayObj.dtoTOentity(roadwayDto, entity, RoadwayManagerConstants.UPDATE_OP_ROADWAY); //parserObj.parserRoadwayBRE_TO_Model(businessRuleBRE,roadwayBRE_Entity,RoadwayManagerConstants.UPDATE_OP_ROADWAY);
+				entity.version = versionManagerObj.registeredGenerate(roadwayDto.version);
 				entity = roadway_DAO.update(entity);
 				responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), entity.id);
 				return new ResponseEntity<>(responseObj, HttpStatus.ACCEPTED);

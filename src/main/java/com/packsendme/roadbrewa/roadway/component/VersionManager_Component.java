@@ -93,10 +93,19 @@ public class VersionManager_Component {
 
 	public String registeredGenerate(String versionCurrent) {
 		String versionChange = getVersionForStatusType(RoadwayManagerConstants.REGISTERED_STATUS, versionCurrent);
+		System.out.println(" +++++++++++++++++++ ");
+		System.out.println(" versionChange "+ versionChange);
 		int versionChangeI = Integer.parseInt(versionChange);
+		System.out.println(" versionChangeI "+ versionChangeI);
 		versionChangeI = versionChangeI+1;
+		System.out.println(" versionChangeI "+ versionChangeI);
+
 		versionChange = String.valueOf(versionChangeI); 
+		System.out.println(" versionChange "+ versionChange);
+
 		String versionFinal = putVersion(RoadwayManagerConstants.REGISTERED_STATUS, versionCurrent, versionChange);
+		System.out.println(" versionFinal "+ versionFinal);
+
 		return versionFinal;
 	}
 	
