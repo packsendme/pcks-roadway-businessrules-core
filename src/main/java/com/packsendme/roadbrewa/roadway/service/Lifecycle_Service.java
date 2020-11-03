@@ -38,16 +38,30 @@ public class Lifecycle_Service {
 			if(roadwayStatusEntity == null) {
 				// (2) Recover Entity Roadway to change fields (Status / Version)
 				Optional<Roadway> roadwayData = roadway_DAO.findOneById(id);
-				Roadway roadwayEntity =  roadwayData.get();
-				roadwayEntity.status = RoadwayManagerConstants.PUBLISHED_STATUS;
-				roadwayEntity.version = versionManagerObj.publishedGenerate(roadwayEntity.version);
-				
-				// (3) Send Entity to Queue Roadway Cache
-				if(roadwayCache_DAO.add(roadwayEntity.transport, roadwayEntity) == true) {
-					roadwayEntity = roadway_DAO.update(roadwayEntity);
+				if(roadwayData != null) {
+					Roadway roadwayEntity =  roadwayData.get();
+					roadwayEntity.status = RoadwayManagerConstants.PUBLISHED_STATUS;
+					roadwayEntity.version = versionManagerObj.publishedGenerate(roadwayEntity.version);
+					
+					// (3) Send Entity to Queue Roadway Cache
+					try {
+						boolean returnCache = roadwayCache_DAO.add(roadwayEntity.transport, roadwayEntity);
+						if(returnCache == true) {
+							roadwayEntity = roadway_DAO.update(roadwayEntity);
+						}
+						responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), roadwayEntity.id);
+						return new ResponseEntity<>(responseObj, HttpStatus.ACCEPTED);
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+						responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), null);
+						return new ResponseEntity<>(responseObj, HttpStatus.BAD_REQUEST);
+					}
 				}
-				responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), roadwayEntity.id);
-				return new ResponseEntity<>(responseObj, HttpStatus.ACCEPTED);
+				else {
+					responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), null);
+					return new ResponseEntity<>(responseObj, HttpStatus.NOT_FOUND);
+				}
 			}
 			else {
 				responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), null);

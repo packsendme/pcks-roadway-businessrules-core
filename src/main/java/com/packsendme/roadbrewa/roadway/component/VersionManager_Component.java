@@ -95,6 +95,8 @@ public class VersionManager_Component {
 	public String registeredGenerate(String versionCurrent) {
 		String versionChange = getVersionForStatusType(RoadwayManagerConstants.REGISTERED_STATUS, versionCurrent);
 		System.out.println(" +++++++++++++++++++ ");
+		System.out.println(" versionCurrent "+ versionCurrent);
+
 		System.out.println(" versionChange "+ versionChange);
 		int versionChangeI = Integer.parseInt(versionChange);
 		System.out.println(" versionChangeI "+ versionChangeI);
@@ -115,7 +117,7 @@ public class VersionManager_Component {
 		int versionChangeI = Integer.parseInt(versionChange);
 		versionChangeI = versionChangeI+1;
 		versionChange = String.valueOf(versionChangeI); 
-		String versionFinal = putVersion(RoadwayManagerConstants.REGISTERED_STATUS, versionCurrent, versionChange);
+		String versionFinal = putVersion(RoadwayManagerConstants.PUBLISHED_STATUS, versionCurrent, versionChange);
 		return versionFinal;
 	}
 	
@@ -124,7 +126,7 @@ public class VersionManager_Component {
 		int versionChangeI = Integer.parseInt(versionChange);
 		versionChangeI = versionChangeI+1;
 		versionChange = String.valueOf(versionChangeI); 
-		String versionFinal = putVersion(RoadwayManagerConstants.REGISTERED_STATUS, versionCurrent, versionChange);
+		String versionFinal = putVersion(RoadwayManagerConstants.BLOCKED_STATUS, versionCurrent, versionChange);
 		return versionFinal;
 	}
 	
@@ -133,7 +135,7 @@ public class VersionManager_Component {
 		int versionChangeI = Integer.parseInt(versionChange);
 		versionChangeI = versionChangeI+1;
 		versionChange = String.valueOf(versionChangeI); 
-		String versionFinal = putVersion(RoadwayManagerConstants.REGISTERED_STATUS, versionCurrent, versionChange);
+		String versionFinal = putVersion(RoadwayManagerConstants.UNLOCKED_STATUS, versionCurrent, versionChange);
 		return versionFinal;
  	}
 	
@@ -142,7 +144,7 @@ public class VersionManager_Component {
 		int versionChangeI = Integer.parseInt(versionChange);
 		versionChangeI = versionChangeI+1;
 		versionChange = String.valueOf(versionChangeI); 
-		String versionFinal = putVersion(RoadwayManagerConstants.REGISTERED_STATUS, versionCurrent, versionChange);
+		String versionFinal = putVersion(RoadwayManagerConstants.CANCELED_STATUS, versionCurrent, versionChange);
 		return versionFinal;
 	}
 
