@@ -14,14 +14,14 @@ import com.packsendme.roadbrewa.component.RoadwayManagerConstants;
 import com.packsendme.roadbrewa.dto.RoadwayDto;
 import com.packsendme.roadbrewa.entity.Roadway;
 import com.packsendme.roadbrewa.roadway.component.VersionManager_Component;
-import com.packsendme.roadbrewa.roadway.dao.RoadwayDAO;
+import com.packsendme.roadbrewa.roadway.dao.Roadway_Dao;
 
 @Service
 @ComponentScan({"com.packsendme.roadbrewa.roadway.dao"})
 public class Lifecycle_Service {
 	
 	@Autowired
-	private RoadwayDAO roadway_DAO;
+	private Roadway_Dao roadway_DAO;
 	
 	@Autowired
 	private RoadwayDto roadwayObj;
