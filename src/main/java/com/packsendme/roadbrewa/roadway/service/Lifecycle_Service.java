@@ -130,7 +130,7 @@ public class Lifecycle_Service {
 		}
 	}
 	
-	public ResponseEntity<?> unblocked (String id) {
+	public ResponseEntity<?> unlocked (String id) {
 		Response<String> responseObj = null;
 		Roadway roadwayCloneEntity = null;
 		try {
