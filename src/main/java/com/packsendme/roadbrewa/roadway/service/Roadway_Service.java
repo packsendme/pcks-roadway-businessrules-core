@@ -94,6 +94,29 @@ public class Roadway_Service {
 		}
 	}
 	
+	public ResponseEntity<?> deleteAll(String id) {
+		Response<String> responseObj = null;
+		try {
+			Optional<Roadway> roadwayData = roadway_DAO.findOneById(id);
+			if(roadwayData.isPresent()) {
+				Roadway entity = roadwayData.get();
+				if(roadway_DAO.remove(entity) == true) {
+					responseObj = new Response<String>(0,HttpExceptionPackSend.DELETE_VEHICLE.getAction(), id);
+				}
+			}
+			else {
+				responseObj = new Response<String>(0,HttpExceptionPackSend.DELETE_ROADWAYBRE.getAction(), id);
+				return new ResponseEntity<>(responseObj, HttpStatus.NOT_FOUND);
+			}
+			return new ResponseEntity<>(responseObj, HttpStatus.OK);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			responseObj = new Response<String>(0,HttpExceptionPackSend.DELETE_VEHICLE.getAction(), null);
+			return new ResponseEntity<>(responseObj, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 	public ResponseEntity<?> update(String id, RoadwayDto roadwayDto) {
 		Response<String> responseObj = null;
 		try {

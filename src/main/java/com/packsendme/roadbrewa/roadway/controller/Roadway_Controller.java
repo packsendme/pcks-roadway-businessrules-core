@@ -57,6 +57,14 @@ public class Roadway_Controller {
 	{	
 		return roadwayService.delete(id);
 	}
+	
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@DeleteMapping("/roadway/all")
+	public ResponseEntity<?> deleteAllRoadway(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
+			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, @Validated @RequestParam("id") String id)
+	{	
+		return roadwayService.deleteAll(id);
+	}
 
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@PutMapping("/roadway")
