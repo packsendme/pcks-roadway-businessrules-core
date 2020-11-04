@@ -91,5 +91,14 @@ public class Roadway_Controller {
 		return lifecycleService.blocked(id);
 	}
 
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@PutMapping("/roadway/unblocked")
+	public ResponseEntity<?> checkUnblocked(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
+			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
+			@Validated @RequestParam("id") String id)
+	{	
+		return lifecycleService.unblocked(id);
+	}
+
 
 }

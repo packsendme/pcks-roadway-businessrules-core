@@ -128,7 +128,53 @@ public class Lifecycle_Service {
 			responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), null);
 			return new ResponseEntity<>(responseObj, HttpStatus.BAD_REQUEST);
 		}
-	}	
+	}
+	
+	public ResponseEntity<?> unblocked (String id) {
+		Response<String> responseObj = null;
+		Roadway roadwayCloneEntity = null;
+		try {
+			// (1) Recover Entity RoadwayBRE
+			Optional<Roadway> roadwayData = roadway_DAO.findOneById(id);
+			if(roadwayData != null){
+				//(2) Check BRE if status equal Blocked
+				if(roadwayData.get().status.equals(RoadwayManagerConstants.BLOCKED_STATUS)) {
+					// (3) Make a copy the Roadway-BRE with status = Blocked
+					roadwayCloneEntity = roadwayData.get();
+					roadwayCloneEntity.id = null;
+
+					// (4) Chnage Roadway-BRE entity to status and version Unblocked
+					Roadway roadwayEntity =  roadwayData.get();
+					roadwayEntity.status = RoadwayManagerConstants.UNLOCKED_STATUS;
+					roadwayEntity.version = versionManagerObj.unlockedGenerate(roadwayEntity.version);
+					try {
+						roadway_DAO.save(roadwayCloneEntity);
+						roadway_DAO.update(roadwayEntity);
+						responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), roadwayEntity.id);
+						return new ResponseEntity<>(responseObj, HttpStatus.ACCEPTED);
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+						responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), null);
+						return new ResponseEntity<>(responseObj, HttpStatus.BAD_REQUEST);
+					}
+				}
+				else {
+					responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), null);
+					return new ResponseEntity<>(responseObj, HttpStatus.NOT_FOUND);
+				}
+			}
+			else {
+				responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), null);
+				return new ResponseEntity<>(responseObj, HttpStatus.NOT_FOUND);
+			}	
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), null);
+			return new ResponseEntity<>(responseObj, HttpStatus.BAD_REQUEST);
+		}
+	}
 			
 	
 }
