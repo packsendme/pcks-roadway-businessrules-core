@@ -15,10 +15,8 @@ public interface ICrud<T> {
 	
 	public T update(T entity);
 	
-	public T findOneByIdAndName(String id, String name);
-
-	public T findOneByParameters(String parameters);
+	public T findEntityByFourParameters(String p1, String p2, String p3, String p4);
 	
-	public List<T> findEntityByParameters(String name);
+	public List<T> findEntitesByTwoParameters(String p1,String p2);
 
 }

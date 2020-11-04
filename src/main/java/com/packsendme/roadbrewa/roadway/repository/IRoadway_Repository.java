@@ -12,6 +12,6 @@ public interface IRoadway_Repository extends MongoRepository<Roadway, String>{
 	@Query("{'category' :  {$eq: ?0}}")
 	Roadway findBusinessRuleByCategory(String category);
 	
-	@Query("{'status' :  {$eq: ?0}}")
-	Roadway findBusinessRuleByStatus(String status);
+	@Query("{'transport' : ?0, status : {$lt : ?1}}")
+	Roadway findRodwayBreByTransportStatus(String transport, String status);
 }

@@ -2,6 +2,7 @@ package com.packsendme.roadbrewa.roadway.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,9 +81,9 @@ public class RoadwayImpl_Dao implements ICrud<Roadway> {
 	}
 
 	@Override
-	public Roadway findOneByParameters(String name) {
+	public Roadway findEntityByFourParameters(String p1, String p2, String p3, String p4) {
 		try {
-			Roadway entityModel = roadwayManager_Rep.findBusinessRuleByStatus(name);
+			Roadway entityModel = roadwayManager_Rep.findRodwayBreByTransportStatus(p1,p2);
 			return entityModel; 
 		}
 		catch (Exception e) {
@@ -92,13 +93,7 @@ public class RoadwayImpl_Dao implements ICrud<Roadway> {
 	}
 
 	@Override
-	public Roadway findOneByIdAndName(String id, String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Roadway> findEntityByParameters(String name) {
+	public List<Roadway> findEntitesByTwoParameters(String p1,String p2) {
 		// TODO Auto-generated method stub
 		return null;
 	}

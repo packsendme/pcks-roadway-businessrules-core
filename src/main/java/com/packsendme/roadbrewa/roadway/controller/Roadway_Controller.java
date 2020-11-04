@@ -77,9 +77,9 @@ public class Roadway_Controller {
 	@PutMapping("/roadway/published")
 	public ResponseEntity<?> checkPublished(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
-			@Validated @RequestParam("id") String id)
+			@Validated @RequestParam("id") String id, @Validated @RequestParam("transport") String transport)
 	{	
-		return lifecycleService.published(id);
+		return lifecycleService.published(id,transport);
 	}
 	
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -98,6 +98,15 @@ public class Roadway_Controller {
 			@Validated @RequestParam("id") String id)
 	{	
 		return lifecycleService.unlocked(id);
+	}
+	
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@PutMapping("/roadway/canceled")
+	public ResponseEntity<?> checkCanceled(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
+			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
+			@Validated @RequestParam("id") String id)
+	{	
+		return lifecycleService.canceled(id);
 	}
 
 
