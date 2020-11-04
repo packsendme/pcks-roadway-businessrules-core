@@ -188,7 +188,7 @@ public class Lifecycle_Service {
 				if(roadwayData.get().status.equals(RoadwayManagerConstants.BLOCKED_STATUS)) {
 					// (3) Change Roadway-BRE entity to status and version Canceled
 					Roadway roadwayEntity =  roadwayData.get();
-					roadwayEntity.status = RoadwayManagerConstants.UNLOCKED_STATUS;
+					roadwayEntity.status = RoadwayManagerConstants.CANCELED_STATUS;
 					roadwayEntity.version = versionManagerObj.canceledGenerate(roadwayEntity.version);
 					try {
 						roadway_DAO.update(roadwayEntity);
