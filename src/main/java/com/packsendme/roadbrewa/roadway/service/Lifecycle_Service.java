@@ -40,8 +40,8 @@ public class Lifecycle_Service {
 				Optional<Roadway> roadwayData = roadway_DAO.findOneById(id);
 				if(roadwayData != null){
 					// (3) Check BRE if status equal REGISTERED or UNLOCKED
-					if((roadwayData.get().status == RoadwayManagerConstants.REGISTERED_STATUS) ||
-							(roadwayData.get().status == RoadwayManagerConstants.UNLOCKED_STATUS)) {
+					if((roadwayData.get().status.equals(RoadwayManagerConstants.REGISTERED_STATUS)) ||
+							(roadwayData.get().status.equals(RoadwayManagerConstants.UNLOCKED_STATUS))) {
 					
 						Roadway roadwayEntity =  roadwayData.get();
 						roadwayEntity.status = RoadwayManagerConstants.PUBLISHED_STATUS;
@@ -92,7 +92,7 @@ public class Lifecycle_Service {
 			Optional<Roadway> roadwayData = roadway_DAO.findOneById(id);
 			if(roadwayData != null){
 				//(2) Check BRE if status equal Published
-				if(roadwayData.get().status == RoadwayManagerConstants.PUBLISHED_STATUS) {
+				if(roadwayData.get().status.equals(RoadwayManagerConstants.PUBLISHED_STATUS)) {
 					// (3) Change RoadwayBRE to status and equal Blocked
 					Roadway roadwayEntity =  roadwayData.get();
 					roadwayEntity.status = RoadwayManagerConstants.BLOCKED_STATUS;
