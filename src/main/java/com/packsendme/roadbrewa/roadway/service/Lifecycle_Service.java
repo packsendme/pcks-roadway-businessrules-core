@@ -149,7 +149,8 @@ public class Lifecycle_Service {
 					roadwayEntity.status = RoadwayManagerConstants.UNLOCKED_STATUS;
 					roadwayEntity.version = versionManagerObj.unlockedGenerate(roadwayEntity.version);
 					try {
-						roadway_DAO.save(roadwayCloneEntity);
+						roadwayCloneEntity = roadway_DAO.save(roadwayCloneEntity);
+						roadwayEntity.blocked_id = roadwayCloneEntity.id;
 						roadway_DAO.update(roadwayEntity);
 						responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), roadwayEntity.id);
 						return new ResponseEntity<>(responseObj, HttpStatus.ACCEPTED);
@@ -185,7 +186,8 @@ public class Lifecycle_Service {
 			Optional<Roadway> roadwayData = roadway_DAO.findOneById(id);
 			if(roadwayData != null){
 				//(2) Check BRE if status equal Blocked
-				if(roadwayData.get().status.equals(RoadwayManagerConstants.BLOCKED_STATUS)) {
+				if((roadwayData.get().status.equals(RoadwayManagerConstants.BLOCKED_STATUS)) ||
+						(roadwayData.get().status.equals(RoadwayManagerConstants.UNLOCKED_STATUS))) {
 					// (3) Change Roadway-BRE entity to status and version Canceled
 					Roadway roadwayEntity =  roadwayData.get();
 					roadwayEntity.status = RoadwayManagerConstants.CANCELED_STATUS;
