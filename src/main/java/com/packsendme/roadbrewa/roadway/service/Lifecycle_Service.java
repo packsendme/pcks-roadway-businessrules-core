@@ -134,25 +134,30 @@ public class Lifecycle_Service {
 	public ResponseEntity<?> unlocked (String id) {
 		Response<String> responseObj = null;
 		Roadway roadwayCloneEntity = null;
+		String id_entity = null;
 		try {
 			// (1) Recover Entity RoadwayBRE
 			Optional<Roadway> roadwayData = roadway_DAO.findOneById(id);
 			if(roadwayData != null){
 				//(2) Check BRE if status equal Blocked
 				if(roadwayData.get().status.equals(RoadwayManagerConstants.BLOCKED_STATUS)) {
-					// (3) Make a copy the Roadway-BRE with status = Blocked
+					// (3) Make a copy entity the Entity Roadway-BRE status = Blocked but change the status to Blocked
+					id_entity = roadwayData.get().id;
+					
 					roadwayCloneEntity = roadwayData.get();
-					roadwayCloneEntity.id = null;
+					roadwayCloneEntity.status = RoadwayManagerConstants.UNLOCKED_STATUS;
+					roadwayCloneEntity.version = versionManagerObj.unlockedGenerate(roadwayCloneEntity.version);
 
-					// (4) Change Roadway-BRE entity to status and version Unblocked
-					Roadway roadwayEntity =  roadwayData.get();
-					roadwayEntity.status = RoadwayManagerConstants.UNLOCKED_STATUS;
-					roadwayEntity.version = versionManagerObj.unlockedGenerate(roadwayEntity.version);
+					System.out.println(" ============================ ");
+					System.out.println(" ID ENTITY "+ id_entity);
+					System.out.println(" ============================ ");
+
+					roadwayCloneEntity.blocked_id = id_entity;
+					roadwayCloneEntity.id = null;
+					
 					try {
 						roadwayCloneEntity = roadway_DAO.save(roadwayCloneEntity);
-						roadwayEntity.blocked_id = roadwayCloneEntity.id;
-						roadway_DAO.update(roadwayEntity);
-						responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), roadwayEntity.id);
+						responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_ROADWAY.getAction(), roadwayCloneEntity.id);
 						return new ResponseEntity<>(responseObj, HttpStatus.ACCEPTED);
 					}
 					catch (Exception e) {
