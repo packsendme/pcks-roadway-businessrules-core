@@ -94,7 +94,13 @@ public class RoadwayImpl_Dao implements ICrud<Roadway> {
 
 	@Override
 	public List<Roadway> findEntitesByTwoParameters(String p1,String p2) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			List<Roadway> entityModel = roadwayManager_Rep.findRodwaysBreByBlockId(p1);
+			return entityModel; 
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null; 
+		}		
 	}
 }

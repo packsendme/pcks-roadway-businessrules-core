@@ -1,5 +1,7 @@
 package com.packsendme.roadbrewa.roadway.repository;
 
+import java.util.List;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,4 +16,8 @@ public interface IRoadway_Repository extends MongoRepository<Roadway, String>{
 	
 	@Query("{'transport' : ?0, status : {$eq : ?1}}")
 	Roadway findRodwayBreByTransportStatus(String transport, String status);
+	
+	@Query("{'blocked_id' :  {$eq: ?0}}")
+	List<Roadway> findRodwaysBreByBlockId(String blocked_id);
+
 }
