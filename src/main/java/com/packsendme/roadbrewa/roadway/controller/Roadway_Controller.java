@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.packsendme.roadbrewa.dto.CurrencyDto;
 import com.packsendme.roadbrewa.dto.RoadwayDto;
+import com.packsendme.roadbrewa.entity.Currency;
+import com.packsendme.roadbrewa.roadway.service.Currency_Service;
 import com.packsendme.roadbrewa.roadway.service.Lifecycle_Service;
 import com.packsendme.roadbrewa.roadway.service.Roadway_Service;
 
@@ -28,6 +31,9 @@ public class Roadway_Controller {
 	
 	@Autowired
 	private Lifecycle_Service lifecycleService;
+	
+	@Autowired
+	private Currency_Service currencyService;
 
 	
 	/***************************************
@@ -116,6 +122,46 @@ public class Roadway_Controller {
 	{	
 		return lifecycleService.canceled(id);
 	}
+
+	
+
+	/***************************************
+	 CURRENCY <--> GET | POST | DELETE 
+	***************************************/
+
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@GetMapping("/roadway/currency")
+	public ResponseEntity<?> getCurrency(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
+			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp) {	
+		return currencyService.findAll();
+	}
+
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@PostMapping("/roadway/currency")
+	public ResponseEntity<?> postCurrency(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
+			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
+			@Validated  @RequestBody CurrencyDto currency)
+	{	
+		return currencyService.save(currency);
+	}
+	
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@DeleteMapping("/roadway/currency")
+	public ResponseEntity<?> deleteCurrency(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
+			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, @Validated @RequestParam("id") String id)
+	{	
+		return currencyService.delete(id);
+	}
+	
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@DeleteMapping("/roadway/currency")
+	public ResponseEntity<?> updateCurrency(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
+			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, @Validated @RequestParam("id") String id,
+			@Validated  @RequestBody CurrencyDto currency)
+	{	
+		return currencyService.update(id, currency);
+	}
+
 
 
 }
