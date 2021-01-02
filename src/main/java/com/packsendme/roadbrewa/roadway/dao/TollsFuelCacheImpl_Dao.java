@@ -5,12 +5,12 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.packsendme.roadbrewa.entity.Roadway;
+import com.packsendme.roadbrewa.entity.TollsFuel;
 import com.packsendme.roadbrewa.roadway.config.Redis_Config;
 
 @Repository
 @Transactional
-public class RoadwayCacheImpl_Dao implements ICrudCache<Roadway>{
+public class TollsFuelCacheImpl_Dao implements ICrudCache<TollsFuel>{
 	
 	private final boolean RESULT_SUCCESS = true;
 	private final boolean RESULT_ERROR = false;
@@ -22,10 +22,10 @@ public class RoadwayCacheImpl_Dao implements ICrudCache<Roadway>{
 	private Redis_Config cacheConfig;
 	
 	@Override
-	public boolean add(String hashKey, Roadway entity) {
+	public boolean add(String hashKey, TollsFuel entity) {
 		try {
-			redisTemplate.opsForHash().delete(cacheConfig.CACHE_ROADWAY,hashKey);  
-			redisTemplate.opsForHash().put(cacheConfig.CACHE_ROADWAY, hashKey, entity);
+			redisTemplate.opsForHash().delete(cacheConfig.CACHE_FUELTOLLS,hashKey);  
+			redisTemplate.opsForHash().put(cacheConfig.CACHE_FUELTOLLS, hashKey, entity);
 			return RESULT_SUCCESS;
 		}
 		catch (Exception e) {
@@ -38,7 +38,7 @@ public class RoadwayCacheImpl_Dao implements ICrudCache<Roadway>{
 	public boolean delete(String hashKey) {
 		long result = 0;
 		try {
-			result = redisTemplate.opsForHash().delete(cacheConfig.CACHE_ROADWAY,hashKey);
+			result = redisTemplate.opsForHash().delete(cacheConfig.CACHE_FUELTOLLS,hashKey);
 			System.out.println(" ===========================================================  ");
 			System.out.println(" RESULT DELETE  "+ result);
 			System.out.println(" ===========================================================  ");
@@ -56,9 +56,9 @@ public class RoadwayCacheImpl_Dao implements ICrudCache<Roadway>{
 	}
 
 	@Override
-	public Roadway findOne(String hashKey) {
+	public TollsFuel findOne(String hashKey) {
 		try {
-			return (Roadway) redisTemplate.opsForHash().get(cacheConfig.CACHE_ROADWAY, hashKey);
+			return (TollsFuel) redisTemplate.opsForHash().get(cacheConfig.CACHE_FUELTOLLS, hashKey);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

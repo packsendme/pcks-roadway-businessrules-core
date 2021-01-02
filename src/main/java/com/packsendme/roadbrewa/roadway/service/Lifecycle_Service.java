@@ -34,7 +34,7 @@ public class Lifecycle_Service {
 	public ResponseEntity<?> published(String id, String transportType) {
 		Response<String> responseObj = null;
 		try {
-			// (1) Check in DDBB exist BRE with Status = Published
+			// (1) Check in DDBB exist BRE with Status = Published to TransportType
 			Roadway roadwayStatusEntity = roadway_DAO.findEntityByFourParameters(transportType,RoadwayManagerConstants.PUBLISHED_STATUS,null,null);
 			if(roadwayStatusEntity == null) {
 				// (2) Recover Entity Roadway to change fields (Status / Version)

@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.packsendme.roadbrewa.dto.CurrencyDto;
 import com.packsendme.roadbrewa.dto.RoadwayDto;
+import com.packsendme.roadbrewa.dto.TollsFuelDto;
 import com.packsendme.roadbrewa.entity.Currency;
 import com.packsendme.roadbrewa.roadway.service.Currency_Service;
 import com.packsendme.roadbrewa.roadway.service.Lifecycle_Service;
 import com.packsendme.roadbrewa.roadway.service.Roadway_Service;
+import com.packsendme.roadbrewa.roadway.service.TollsFuel_Service;
 
 @RestController
 @RequestMapping("/roadbrewa")
@@ -35,6 +37,8 @@ public class Roadway_Controller {
 	@Autowired
 	private Currency_Service currencyService;
 
+	@Autowired
+	private TollsFuel_Service tollsfuelService;
 	
 	/***************************************
 	 ROADWAY <--> GET | POST | DELETE 
@@ -162,6 +166,43 @@ public class Roadway_Controller {
 		return currencyService.update(id, currency);
 	}
 
+	/***************************************
+	 TOLLS AND FUEL <--> GET | POST | DELETE 
+	***************************************/
+
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@GetMapping("/roadway/tollsfuel")
+	public ResponseEntity<?> getTollsFuel(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
+			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
+			@RequestHeader("country") String country) {	
+		return tollsfuelService.findOneTollsFuelByActive(country);
+	}
+
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@PostMapping("/roadway/tollsfuel")
+	public ResponseEntity<?> postTollsFuel(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
+			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
+			@Validated  @RequestBody TollsFuelDto tollsFuel)
+	{	
+		return tollsfuelService.save(tollsFuel);
+	}
+	
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@DeleteMapping("/roadway/tollsfuel")
+	public ResponseEntity<?> deleteTollsFuel(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
+			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, @Validated @RequestParam("id") String id)
+	{	
+		return tollsfuelService.delete(id);
+	}
+	
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@PutMapping("/roadway/tollsfuel")
+	public ResponseEntity<?> updateTollsFuel(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
+			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, @Validated @RequestParam("id") String id,
+			@Validated  @RequestBody TollsFuelDto tollsFuel)
+	{	
+		return tollsfuelService.update(id, tollsFuel);
+	}
 
 
 }

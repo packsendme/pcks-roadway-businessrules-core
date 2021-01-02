@@ -17,7 +17,10 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class Redis_Config {
 	
 	@Value(value = "${redis.cache.roadwayBRE_SA}")
-	public String NAME_CACHE;
+	public String CACHE_ROADWAY;
+	
+	@Value(value = "${redis.cache.tollsfuel}")
+	public String CACHE_FUELTOLLS;
 	
 	@Value(value = "${spring.redis.host}")
 	public String REDIS_HOSTNAME;
