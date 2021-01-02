@@ -174,7 +174,7 @@ public class Roadway_Controller {
 	@GetMapping("/roadway/tollsfuel")
 	public ResponseEntity<?> getTollsFuel(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
-			@RequestHeader("country") String country) {	
+			@RequestParam("country") String country) {	
 		return tollsfuelService.findOneTollsFuelByActive(country);
 	}
 
