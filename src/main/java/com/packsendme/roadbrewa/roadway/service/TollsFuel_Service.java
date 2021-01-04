@@ -57,7 +57,7 @@ public class TollsFuel_Service {
 		try {
 			tollsFuel_DAO.delete(key);
 			responseObj = new Response<String>(0,HttpExceptionPackSend.DELETE_VEHICLE.getAction(), key);
-			return new ResponseEntity<>(responseObj, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(responseObj, HttpStatus.ACCEPTED);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
