@@ -107,7 +107,7 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>com.packsendme.bre.roadway</groupId>
+			<groupId>com.packsendme.lib.roadway</groupId>
 			<artifactId>pcks-roadbrewa-roadway-lib</artifactId>
   			<version>0.0.1-SNAPSHOT</version>		
 		</dependency>
