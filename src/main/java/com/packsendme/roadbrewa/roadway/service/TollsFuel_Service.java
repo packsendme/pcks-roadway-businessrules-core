@@ -26,9 +26,17 @@ public class TollsFuel_Service {
 		Response<TollsFuelDto> responseObj = null;
 		try {
 			 TollsFuel entity = tollsFuel_DAO.findOne(hashKey);
-			 TollsFuelDto tollsFuel_dto = tollsfuelObj.entityTOdto(entity); 
-			 responseObj = new Response<TollsFuelDto>(0,HttpExceptionPackSend.CREATE_ROADWAYBRE.getAction(), tollsFuel_dto);
-			 return new ResponseEntity<>(responseObj, HttpStatus.OK);
+			 if(entity != null) {
+				 TollsFuelDto tollsFuel_dto = tollsfuelObj.entityTOdto(entity); 
+				 responseObj = new Response<TollsFuelDto>(0,HttpExceptionPackSend.CREATE_ROADWAYBRE.getAction(), tollsFuel_dto);
+				 return new ResponseEntity<>(responseObj, HttpStatus.OK);
+
+			 }
+			 else {
+				 responseObj = new Response<TollsFuelDto>(0,HttpExceptionPackSend.CREATE_ROADWAYBRE.getAction(), null);
+				 return new ResponseEntity<>(responseObj, HttpStatus.NOT_FOUND);
+
+			 }
 		}
 		catch (Exception e) {
 			e.printStackTrace();
