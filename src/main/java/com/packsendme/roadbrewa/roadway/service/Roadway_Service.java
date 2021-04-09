@@ -45,18 +45,18 @@ public class Roadway_Service {
 	}
 	
 	public ResponseEntity<?> save(RoadwayDto roadwayDto) {
-		Response<RoadwayDto> responseObj = null;
+		Response<Roadway> responseObj = null;
 		try {
 			Roadway entity = roadwayObj.dtoTOentity(roadwayDto, null, RoadwayManagerConstants.ADD_OP_ROADWAY); 
 			entity.version = versionManagerObj.registeredGenerate(RoadwayManagerConstants.VERSION_DEFAULT);
 			entity.status = RoadwayManagerConstants.REGISTERED_STATUS;
-			roadway_DAO.save(entity);
-			responseObj = new Response<RoadwayDto>(0,HttpExceptionPackSend.CREATE_ROADWAYBRE.getAction(), roadwayDto);
+			Roadway entitySave = roadway_DAO.save(entity);
+			responseObj = new Response<Roadway>(0,HttpExceptionPackSend.CREATE_ROADWAYBRE.getAction(), entitySave);
 			return new ResponseEntity<>(responseObj, HttpStatus.OK);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			responseObj = new Response<RoadwayDto>(0,HttpExceptionPackSend.CREATE_ROADWAYBRE.getAction(), null);
+			responseObj = new Response<Roadway>(0,HttpExceptionPackSend.CREATE_ROADWAYBRE.getAction(), null);
 			return new ResponseEntity<>(responseObj, HttpStatus.BAD_REQUEST);
 		}
 	}
