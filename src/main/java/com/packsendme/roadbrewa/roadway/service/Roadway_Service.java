@@ -50,8 +50,11 @@ public class Roadway_Service {
 			Roadway entity = roadwayObj.dtoTOentity(roadwayDto, null, RoadwayManagerConstants.ADD_OP_ROADWAY); 
 			entity.version = versionManagerObj.registeredGenerate(RoadwayManagerConstants.VERSION_DEFAULT);
 			entity.status = RoadwayManagerConstants.REGISTERED_STATUS;
-			Roadway entitySave = roadway_DAO.save(entity);
-			responseObj = new Response<Roadway>(0,HttpExceptionPackSend.CREATE_ROADWAYBRE.getAction(), entitySave);
+			roadway_DAO.save(entity);
+			
+			// Find last roadway register
+			Roadway entityFind = roadway_DAO.findEntityByFourParameters(roadwayDto.transport, "REGISTERED", null, null);
+			responseObj = new Response<Roadway>(0,HttpExceptionPackSend.CREATE_ROADWAYBRE.getAction(), entityFind);
 			return new ResponseEntity<>(responseObj, HttpStatus.OK);
 		}
 		catch (Exception e) {
