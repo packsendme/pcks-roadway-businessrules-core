@@ -1,14 +1,10 @@
 package com.packsendme.roadbrewa.roadway.service;
-
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
+import java.util.Optional;
 import com.packsendme.lib.common.constants.generic.HttpExceptionPackSend;
 import com.packsendme.lib.common.response.Response;
 import com.packsendme.roadbrewa.component.RoadwayManagerConstants;
@@ -50,7 +46,7 @@ public class Lifecycle_Service {
 						
 						// (3) Send Entity to Queue Roadway Cache
 						try {
-							boolean returnCache = roadwayCache_DAO.add(roadwayEntity.transport, roadwayEntity);
+							boolean returnCache = roadwayCache_DAO.add(roadwayEntity.transport_name, roadwayEntity);
 							if(returnCache == true) {
 								roadwayEntity = roadway_DAO.update(roadwayEntity);
 							}
@@ -102,7 +98,7 @@ public class Lifecycle_Service {
 					
 					// (4) Send request blocked (delete) to QueueCache the Key (transport)
 					try {
-						boolean returnCache = roadwayCache_DAO.delete(roadwayEntity.transport);
+						boolean returnCache = roadwayCache_DAO.delete(roadwayEntity.transport_name);
 						if(returnCache == true) {
 							roadwayEntity = roadway_DAO.update(roadwayEntity);
 						}
