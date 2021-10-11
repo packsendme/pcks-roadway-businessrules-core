@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	
 	<modelVersion>4.0.0</modelVersion>
-  	<groupId>com.packsendme.microservice.roadway</groupId>
-  	<artifactId>pcks-roadbrewa-roadway-core</artifactId>
+  	<groupId>com.packsendme.roadway.microservice</groupId>
+  	<artifactId>pcks-roadway-businessrules-core</artifactId>
   	<version>0.0.1-SNAPSHOT</version>
   
 	<parent>
@@ -96,8 +96,8 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>com.packsendme.lib.common</groupId>
-			<artifactId>pcks-common-lib</artifactId>
+			<groupId>com.packsendme.crosscut.lib</groupId>
+			<artifactId>pcks-cross-commons-lib</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		
@@ -107,8 +107,8 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>com.packsendme.lib.roadway</groupId>
-			<artifactId>pcks-roadbrewa-roadway-lib</artifactId>
+			<groupId>com.packsendme.roadway.lib</groupId>
+			<artifactId>pcks-roadway-commons-lib</artifactId>
   			<version>0.0.1-SNAPSHOT</version>		
 		</dependency>
 		

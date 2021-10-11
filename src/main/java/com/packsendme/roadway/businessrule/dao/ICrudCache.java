@@ -1,4 +1,4 @@
-package com.packsendme.roadbrewa.roadway.dao;
+package com.packsendme.roadway.businessrule.dao;
 
 public interface ICrudCache<T> {
 	

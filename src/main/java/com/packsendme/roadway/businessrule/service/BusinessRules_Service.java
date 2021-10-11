@@ -1,4 +1,4 @@
-package com.packsendme.roadbrewa.roadway.service;
+package com.packsendme.roadway.businessrule.service;
 
 import java.util.Optional;
 
@@ -8,21 +8,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.packsendme.lib.common.constants.generic.HttpExceptionPackSend;
-import com.packsendme.lib.common.response.Response;
-import com.packsendme.roadbrewa.component.RoadwayManagerConstants;
-import com.packsendme.roadbrewa.dto.RoadwayDto;
-import com.packsendme.roadbrewa.entity.Roadway;
-import com.packsendme.roadbrewa.roadway.component.VersionManager_Component;
-import com.packsendme.roadbrewa.roadway.dao.RoadwayImpl_Dao;
-import com.packsendme.roadbrewa.roadway.dto.RoadwayListResponse_Dto;
+import com.packsendme.cross.common.constants.generic.HttpExceptionPackSend;
+import com.packsendme.cross.common.response.Response;
+import com.packsendme.roadway.commons.constants.RoadwayManagerConstants;
+import com.packsendme.roadway.commons.dto.RoadwayDto;
+import com.packsendme.roadway.commons.entity.Roadway;
+import com.packsendme.roadway.businessrule.component.VersionManager_Component;
+import com.packsendme.roadway.businessrule.dao.BusinessRulesImpl_Dao;
+import com.packsendme.roadway.businessrule.dto.BusinessRulesListResponse_Dto;
 
 @Service
 @ComponentScan({"com.packsendme.roadbrewa.roadway.dao"})
-public class Roadway_Service {
+public class BusinessRules_Service {
 	
 	@Autowired
-	private RoadwayImpl_Dao roadway_DAO;
+	private BusinessRulesImpl_Dao roadway_DAO;
 	
 	@Autowired
 	private VersionManager_Component versionManagerObj;
@@ -30,16 +30,16 @@ public class Roadway_Service {
 	private RoadwayDto roadwayObj = new RoadwayDto();
 
 	public ResponseEntity<?> findAll() {
-		Response<RoadwayListResponse_Dto> responseObj = null;
-		RoadwayListResponse_Dto roadwayListResponse_Dto = new RoadwayListResponse_Dto();
+		Response<BusinessRulesListResponse_Dto> responseObj = null;
+		BusinessRulesListResponse_Dto roadwayListResponse_Dto = new BusinessRulesListResponse_Dto();
 		try {
 			roadwayListResponse_Dto.roadways = roadwayObj.entityTOdto(roadway_DAO.findAll());
-			responseObj = new Response<RoadwayListResponse_Dto>(0,HttpExceptionPackSend.CREATED_ROADWAYBRE.getAction(), roadwayListResponse_Dto);
+			responseObj = new Response<BusinessRulesListResponse_Dto>(0,HttpExceptionPackSend.CREATED_ROADWAYBRE.getAction(), roadwayListResponse_Dto);
 			return new ResponseEntity<>(responseObj, HttpStatus.OK);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			responseObj = new Response<RoadwayListResponse_Dto>(0,HttpExceptionPackSend.CREATED_VEHICLE.getAction(), null);
+			responseObj = new Response<BusinessRulesListResponse_Dto>(0,HttpExceptionPackSend.CREATED_VEHICLE.getAction(), null);
 			return new ResponseEntity<>(responseObj, HttpStatus.BAD_REQUEST);
 		}
 	}

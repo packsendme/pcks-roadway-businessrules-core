@@ -1,4 +1,4 @@
-package com.packsendme.roadbrewa.roadway.dao;
+package com.packsendme.roadway.businessrule.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,15 +9,15 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import com.mongodb.MongoClientException;
-import com.packsendme.roadbrewa.entity.Roadway;
-import com.packsendme.roadbrewa.roadway.repository.IRoadway_Repository;
+import com.packsendme.roadway.commons.entity.Roadway;
+import com.packsendme.roadway.businessrule.repository.IBusinessRules_Repository;
 
 @Component
 @ComponentScan({"com.packsendme.roadbrewa.roadway.repository"})
-public class RoadwayImpl_Dao implements ICrud<Roadway> {
+public class BusinessRulesImpl_Dao implements ICrud<Roadway> {
 
 	@Autowired
-	IRoadway_Repository roadwayManager_Rep; 
+	IBusinessRules_Repository roadwayManager_Rep; 
 
 	
 	@Override

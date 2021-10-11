@@ -1,4 +1,4 @@
-package com.packsendme.roadbrewa.roadway.dao;
+package com.packsendme.roadway.businessrule.dao;
 
 import java.util.List;
 import java.util.Optional;

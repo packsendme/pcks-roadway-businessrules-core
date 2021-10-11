@@ -1,4 +1,4 @@
-package com.packsendme.roadbrewa.roadway.service;
+package com.packsendme.roadway.businessrule.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -6,12 +6,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.packsendme.lib.common.constants.generic.HttpExceptionPackSend;
-import com.packsendme.lib.common.response.Response;
-import com.packsendme.roadbrewa.component.RoadwayManagerConstants;
-import com.packsendme.roadbrewa.dto.TollsFuelDto;
-import com.packsendme.roadbrewa.entity.TollsFuel;
-import com.packsendme.roadbrewa.roadway.dao.TollsFuelCacheImpl_Dao;
+
+import com.packsendme.cross.common.constants.generic.HttpExceptionPackSend;
+import com.packsendme.cross.common.response.Response;
+import com.packsendme.roadway.commons.constants.RoadwayManagerConstants;
+import com.packsendme.roadway.commons.dto.TollsFuelDto;
+import com.packsendme.roadway.commons.entity.TollsFuel;
+import com.packsendme.roadway.businessrule.dao.TollsFuelCacheImpl_Dao;
 
 @Service
 @ComponentScan({"com.packsendme.roadbrewa.roadway.dao"})

@@ -1,4 +1,4 @@
-package com.packsendme.roadbrewa.roadway.dao;
+package com.packsendme.roadway.businessrule.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +9,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import com.mongodb.MongoClientException;
-import com.packsendme.roadbrewa.entity.Currency;
-import com.packsendme.roadbrewa.roadway.repository.ICurrency_Repository;
+import com.packsendme.roadway.commons.entity.Currency;
+import com.packsendme.roadway.businessrule.repository.ICurrency_Repository;
 
 @Component
-@ComponentScan({"com.packsendme.roadbrewa.roadway.repository"})
+@ComponentScan({"com.packsendme.roadway.businessrule.repository"})
 public class CurrencyImpl_Dao implements ICrud<Currency> {
 
 	@Autowired

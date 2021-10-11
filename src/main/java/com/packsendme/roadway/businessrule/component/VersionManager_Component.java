@@ -1,8 +1,8 @@
-package com.packsendme.roadbrewa.roadway.component;
+package com.packsendme.roadway.businessrule.component;
 
 import org.springframework.stereotype.Component;
 
-import com.packsendme.roadbrewa.component.RoadwayManagerConstants;
+import com.packsendme.roadway.commons.constants.RoadwayManagerConstants;
 
 @Component
 public class VersionManager_Component {

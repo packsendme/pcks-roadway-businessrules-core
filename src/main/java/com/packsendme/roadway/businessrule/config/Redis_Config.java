@@ -1,4 +1,4 @@
-package com.packsendme.roadbrewa.roadway.config;
+package com.packsendme.roadway.businessrule.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

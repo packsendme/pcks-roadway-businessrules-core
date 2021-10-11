@@ -1,4 +1,4 @@
-package com.packsendme.roadbrewa.roadway.controller;
+package com.packsendme.roadway.businessrule.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,21 +14,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.packsendme.roadbrewa.dto.CurrencyDto;
-import com.packsendme.roadbrewa.dto.RoadwayDto;
-import com.packsendme.roadbrewa.dto.TollsFuelDto;
-import com.packsendme.roadbrewa.roadway.service.Currency_Service;
-import com.packsendme.roadbrewa.roadway.service.Lifecycle_Service;
-import com.packsendme.roadbrewa.roadway.service.Roadway_Service;
-import com.packsendme.roadbrewa.roadway.service.TollsFuel_Service;
+import com.packsendme.roadway.commons.dto.CurrencyDto;
+import com.packsendme.roadway.commons.dto.RoadwayDto;
+import com.packsendme.roadway.commons.dto.TollsFuelDto;
+import com.packsendme.roadway.businessrule.service.Currency_Service;
+import com.packsendme.roadway.businessrule.service.Lifecycle_Service;
+import com.packsendme.roadway.businessrule.service.BusinessRules_Service;
+import com.packsendme.roadway.businessrule.service.TollsFuel_Service;
 
 @RestController
-@RequestMapping("/roadbrewa")
-public class Roadway_Controller {
+@RequestMapping("/roadway/businessrule")
+public class BusinessRules_Controller {
 
 	
 	@Autowired
-	private Roadway_Service roadwayService;	
+	private BusinessRules_Service roadwayService;	
 	
 	@Autowired
 	private Lifecycle_Service lifecycleService;
@@ -44,14 +44,14 @@ public class Roadway_Controller {
 	***************************************/
 
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@GetMapping("/roadway")
+	@GetMapping("/")
 	public ResponseEntity<?> getRoadway(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp) {	
 		return roadwayService.findAll();
 	}
 
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@PostMapping("/roadway")
+	@PostMapping("/")
 	public ResponseEntity<?> postRoadway(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
 			@Validated  @RequestBody RoadwayDto roadway)
@@ -60,7 +60,7 @@ public class Roadway_Controller {
 	}
 	
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@DeleteMapping("/roadway")
+	@DeleteMapping("/")
 	public ResponseEntity<?> deleteRoadway(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, @Validated @RequestParam("id") String id)
 	{	
@@ -68,7 +68,7 @@ public class Roadway_Controller {
 	}
 	
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@DeleteMapping("/roadway/all")
+	@DeleteMapping("/all")
 	public ResponseEntity<?> deleteAllRoadway(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, @Validated @RequestParam("id") String id)
 	{	
@@ -76,7 +76,7 @@ public class Roadway_Controller {
 	}
 
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@PutMapping("/roadway")
+	@PutMapping("/")
 	public ResponseEntity<?> updateRoadway(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, @Validated @RequestParam("id") String id,
 			@Validated  @RequestBody RoadwayDto roadway)
@@ -91,7 +91,7 @@ public class Roadway_Controller {
 	***************************************/
 	
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@PutMapping("/roadway/published")
+	@PutMapping("/life/published")
 	public ResponseEntity<?> checkPublished(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
 			@Validated @RequestParam("id") String id, @Validated @RequestParam("transport") String transport)
@@ -100,7 +100,7 @@ public class Roadway_Controller {
 	}
 	
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@PutMapping("/roadway/blocked")
+	@PutMapping("/life/blocked")
 	public ResponseEntity<?> checkBlocked(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
 			@Validated @RequestParam("id") String id)
@@ -109,7 +109,7 @@ public class Roadway_Controller {
 	}
 
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@PutMapping("/roadway/unlocked")
+	@PutMapping("/life/unlocked")
 	public ResponseEntity<?> checkUnlocked(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
 			@Validated @RequestParam("id") String id)
@@ -118,7 +118,7 @@ public class Roadway_Controller {
 	}
 	
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@PutMapping("/roadway/canceled")
+	@PutMapping("/life/canceled")
 	public ResponseEntity<?> checkCanceled(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
 			@Validated @RequestParam("id") String id)
@@ -133,14 +133,14 @@ public class Roadway_Controller {
 	***************************************/
 
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@GetMapping("/roadway/currency")
+	@GetMapping("/currency")
 	public ResponseEntity<?> getCurrency(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp) {	
 		return currencyService.findAll();
 	}
 
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@PostMapping("/roadway/currency")
+	@PostMapping("/currency")
 	public ResponseEntity<?> postCurrency(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
 			@Validated  @RequestBody CurrencyDto currency)
@@ -149,7 +149,7 @@ public class Roadway_Controller {
 	}
 	
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@DeleteMapping("/roadway/currency")
+	@DeleteMapping("/currency")
 	public ResponseEntity<?> deleteCurrency(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, @Validated @RequestParam("id") String id)
 	{	
@@ -157,7 +157,7 @@ public class Roadway_Controller {
 	}
 	
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@PutMapping("/roadway/currency")
+	@PutMapping("/currency")
 	public ResponseEntity<?> updateCurrency(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, @Validated @RequestParam("id") String id,
 			@Validated  @RequestBody CurrencyDto currency)
@@ -170,7 +170,7 @@ public class Roadway_Controller {
 	***************************************/
 
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@GetMapping("/roadway/tollsfuel")
+	@GetMapping("/tollsfuel")
 	public ResponseEntity<?> getTollsFuel(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
 			@RequestParam("country") String country) {	
@@ -178,7 +178,7 @@ public class Roadway_Controller {
 	}
 
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@PostMapping("/roadway/tollsfuel")
+	@PostMapping("/tollsfuel")
 	public ResponseEntity<?> postTollsFuel(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, 
 			@Validated  @RequestBody TollsFuelDto tollsFuel)
@@ -187,7 +187,7 @@ public class Roadway_Controller {
 	}
 	
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@DeleteMapping("/roadway/tollsfuel")
+	@DeleteMapping("/tollsfuel")
 	public ResponseEntity<?> deleteTollsFuel(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, @Validated @RequestParam("id") String id)
 	{	
@@ -195,7 +195,7 @@ public class Roadway_Controller {
 	}
 	
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@PutMapping("/roadway/tollsfuel")
+	@PutMapping("/tollsfuel")
 	public ResponseEntity<?> updateTollsFuel(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, @Validated @RequestParam("id") String id,
 			@Validated  @RequestBody TollsFuelDto tollsFuel)

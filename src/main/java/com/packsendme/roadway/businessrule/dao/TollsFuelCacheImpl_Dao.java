@@ -1,12 +1,12 @@
-package com.packsendme.roadbrewa.roadway.dao;
+package com.packsendme.roadway.businessrule.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.packsendme.roadbrewa.entity.TollsFuel;
-import com.packsendme.roadbrewa.roadway.config.Redis_Config;
+import com.packsendme.roadway.commons.entity.TollsFuel;
+import com.packsendme.roadway.businessrule.config.Redis_Config;
 
 @Repository
 @Transactional

@@ -1,17 +1,17 @@
-package com.packsendme.roadbrewa.roadway.dto;
+package com.packsendme.roadway.businessrule.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.packsendme.roadbrewa.dto.RoadwayDto;
+import com.packsendme.roadway.commons.dto.RoadwayDto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter 
 @Setter
-public class RoadwayListResponse_Dto implements Serializable{
+public class BusinessRulesListResponse_Dto implements Serializable{
 
 	/**
 	 * 
@@ -22,14 +22,14 @@ public class RoadwayListResponse_Dto implements Serializable{
 
  
 
-	public RoadwayListResponse_Dto(List<RoadwayDto> roadways) {
+	public BusinessRulesListResponse_Dto(List<RoadwayDto> roadways) {
 		super();
 		this.roadways = roadways;
 	}
 
 
 
-	public RoadwayListResponse_Dto() {
+	public BusinessRulesListResponse_Dto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

@@ -1,10 +1,10 @@
-package com.packsendme.roadbrewa.roadway.dto;
+package com.packsendme.roadway.businessrule.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.packsendme.roadbrewa.dto.CurrencyDto;
+import com.packsendme.roadway.commons.dto.CurrencyDto;
 
 import lombok.Getter;
 import lombok.Setter;
